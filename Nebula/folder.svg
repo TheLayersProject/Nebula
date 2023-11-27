@@ -1,0 +1,9 @@
+<svg 
+ xmlns="http://www.w3.org/2000/svg"
+ xmlns:xlink="http://www.w3.org/1999/xlink"
+ width="25px" height="22px">
+<path fill-rule="evenodd" fill="#a8ab6f" transform="translate(1, 0)"
+ d="M0.497,5.498 L0.497,1.997 L2.497,-0.003 L10.500,-0.003 L14.501,3.998 L14.501,5.498 L0.497,5.498 Z"/>
+<path fill-rule="evenodd" fill="#dbdf90" transform="translate(0, 4)"
+ d="M3.496,-0.002 L22.496,-0.002 C24.153,-0.002 25.496,1.341 25.496,2.998 L25.496,14.998 C25.496,16.655 24.153,17.998 22.496,17.998 L3.496,17.998 C1.839,17.998 0.496,16.655 0.496,14.998 L0.496,2.998 C0.496,1.341 1.839,-0.002 3.496,-0.002 Z"/>
+</svg>
