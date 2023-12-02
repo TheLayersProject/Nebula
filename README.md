@@ -1,6 +1,6 @@
 # Nebula
 
-<img src="https://layersproject.org/images/nebula_logo.svg" alt="Nebula Logo Image" width="50px"/>
+<img src="https://layersproject.org/images/nebula_logo.svg" alt="Nebula Logo Image" width="100px"/>
 
 Nebula is an application for managing and editing [Layers](https://layersproject.org/) themes.
 
