@@ -17,34 +17,34 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-//#ifndef OPENER_H
-//#define OPENER_H
-//
-//#include <QVBoxLayout>
-//
-//#include <QLayers/qlscrollarea.h>
-//#include <QLayers/qlwidget.h>
-//
-//class NebulaWindow;
-//
-//class Opener : public QLayers::QLWidget
-//{
-//	Q_OBJECT
-//
-//public:
-//	Opener(NebulaWindow* window, QWidget* parent = nullptr);
-//
-//private:
-//	void init_layout();
-//	void init_theme_scroller();
-//
-//	NebulaWindow* m_window;
-//
-//	QVBoxLayout* m_theme_vbox{ new QVBoxLayout };
-//
-//	QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
-//
-//	QWidget* m_theme_scroller_widget{ new QWidget };
-//};
-//
-//#endif // OPENER_H
+#include "linkdisplayer.h"
+
+#include <QHBoxLayout>
+
+LinkDisplayer::LinkDisplayer(QWidget* parent) : QLWidget(parent)
+{
+	init_layout();
+	setFixedHeight(24);
+	set_object_name("Link Displayer");
+
+	m_link_icon_label->set_object_name("Icon Label");
+
+	m_label->set_object_name("Text Label");
+	m_label->set_font_size_f(10.5);
+}
+
+void LinkDisplayer::set_link(Layers::LLink* link)
+{
+	m_label->setText(link->path().c_str());
+}
+
+void LinkDisplayer::init_layout()
+{
+	QHBoxLayout* main_layout = new QHBoxLayout;
+	main_layout->addWidget(m_link_icon_label);
+	main_layout->addWidget(m_label);
+	main_layout->setContentsMargins(8, 0, 8, 0);
+	main_layout->setSpacing(5);
+
+	setLayout(main_layout);
+}

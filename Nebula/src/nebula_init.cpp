@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -17,24 +17,25 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef EDITOR_H
-#define EDITOR_H
+#include "nebula_init.h"
 
-#include <QVBoxLayout>
+#include <QDebug>
 
-#include <Layers/ltheme.h>
+#include <Layers/lstring.h>
+#include <Layers/lcontroller.h>
 
-#include <QLayers/qlwidget.h>
-
-class Editor : public QLayers::QLWidget
+void initialize_resources()
 {
-	Q_OBJECT
+    Q_INIT_RESOURCE(images);
+}
 
-public:
-	Editor(Layers::LTheme* theme, QWidget* parent = nullptr);
+namespace Nebula {
+    Initializer::Initializer() {
+        lController.include("Nebula (The Layers Project)/0.1.0", true);
+        qDebug() << "LOADED Nebula DEFINITIONS!";
 
-private:
-	void init_layout();
-};
+        initialize_resources();
+    }
 
-#endif // EDITOR_H
+    static Initializer nebula_initializer;
+}

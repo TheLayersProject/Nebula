@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -23,6 +23,8 @@
 #include <QLayers/qlbutton.h>
 #include <QLayers/qlwidget.h>
 
+#include "homebutton.h"
+
 class Nebula : public QLayers::QLWidget
 {
 	Q_OBJECT
@@ -30,22 +32,37 @@ class Nebula : public QLayers::QLWidget
 public:
 	Nebula(QWidget* parent = nullptr);
 
-	QLayers::QLButton* create_button() const;
+	HomeButton* definitions_button() const;
 
-	QLayers::QLButton* open_button() const;
+	HomeButton* themes_button() const;
+
+	HomeButton* styles_button() const;
 
 private:
 	void init_layout();
 
-	QLayers::QLButton* m_create_button{
-		new QLayers::QLButton(
-			QLayers::QLGraphic(":/images/new_theme.svg", QSize(20, 20)),
-			"Create") };
+	HomeButton* m_definitions_button{
+		new HomeButton(
+			QLayers::QLGraphic(":/images/definitions.svg", QSize(30, 19)),
+			"Definitions",
+			"Define your applications") };
+			//"Define the default values and structure of your widgets") };
 
-	QLayers::QLButton* m_open_button{
-		new QLayers::QLButton(
-			QLayers::QLGraphic("folder.svg", QSize(25, 22)),
-			"Open") };
+	HomeButton* m_themes_button{
+		new HomeButton(
+			QLayers::QLGraphic(":/images/themes.svg", QSize(30, 30)),
+			"Themes",
+			"Control a universe of applications") };
+			//"Create themes that can be applied to any Layers app") };
+
+	HomeButton* m_styles_button{
+		new HomeButton(
+			QLayers::QLGraphic(":/images/styles.svg", QSize(26, 25)),
+			"Styles",
+			"Redefine applications") };
+			//"Craft styles that illuminate apps through the cosmic void") };
+			//"Create styles to command your apps and make them shine") };
+			//"Create styles that customize specifics of any Layers app") };
 };
 
 #endif // NEBULA_H

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -17,11 +17,36 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "editor.h"
+#ifndef ATTRIBUTEMAPITEM_H
+#define ATTRIBUTEMAPITEM_H
 
-Editor::Editor(Layers::LTheme* theme, QWidget* parent) :
-	QLWidget(parent)
+#include <QVariant>
+#include <QList>
+#include <Layers/lattribute.h>
+
+class AttributeMapItem : public QObject
 {
-	//set_object_name(theme->name());
-	set_object_name("Editor");
-}
+	Q_OBJECT
+
+public:
+	AttributeMapItem(Layers::LAttribute* attribute,
+		AttributeMapItem* parent = nullptr);
+
+	void append_child(AttributeMapItem* child);
+
+	Layers::LAttribute* attribute() const;
+
+	AttributeMapItem* child(int index) const;
+
+	int child_count() const;
+
+	QMap<QString, AttributeMapItem*>& children();
+
+	int index() const;
+
+private:
+	QMap<QString, AttributeMapItem*> m_child_attr_items;
+	Layers::LAttribute* m_attribute{ nullptr };
+};
+
+#endif // ATTRIBUTEMAPITEM_H

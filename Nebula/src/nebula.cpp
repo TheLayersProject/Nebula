@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -31,39 +31,38 @@ Nebula::Nebula(QWidget* parent) :
 	init_layout();
 	set_object_name("Nebula");
 
-	m_create_button->graphic_label()->setMinimumWidth(30);
-	m_create_button->text_label()->set_bold();
-	m_create_button->text_label()->set_font_size(13);
-	m_create_button->layout()->addStretch();
-	m_create_button->setFixedWidth(180);
-	m_create_button->setSizePolicy(
-		QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_definitions_button->set_object_name("Definitions Button");
+	m_definitions_button->graphic_label()->setMinimumSize(32, 32);
 
-	m_open_button->graphic_label()->setMinimumWidth(30);
-	m_open_button->text_label()->set_bold();
-	m_open_button->text_label()->set_font_size(13);
-	m_open_button->layout()->addStretch();
-	m_open_button->setFixedWidth(180);
-	m_open_button->setSizePolicy(
-		QSizePolicy::Fixed, QSizePolicy::Fixed);
+	m_themes_button->set_object_name("Themes Button");
+	m_themes_button->graphic_label()->setMinimumWidth(32);
+
+	m_styles_button->set_object_name("Styles Button");
+	m_styles_button->graphic_label()->setMinimumWidth(32);
 }
 
-QLayers::QLButton* Nebula::create_button() const
+HomeButton* Nebula::definitions_button() const
 {
-	return m_create_button;
+	return m_definitions_button;
 }
 
-QLayers::QLButton* Nebula::open_button() const
+HomeButton* Nebula::themes_button() const
 {
-	return m_open_button;
+	return m_themes_button;
+}
+
+HomeButton* Nebula::styles_button() const
+{
+	return m_styles_button;
 }
 
 void Nebula::init_layout()
 {
 	QVBoxLayout* buttons_layout = new QVBoxLayout;
 	buttons_layout->addStretch();
-	buttons_layout->addWidget(m_create_button);
-	buttons_layout->addWidget(m_open_button);
+	buttons_layout->addWidget(m_definitions_button);
+	buttons_layout->addWidget(m_themes_button);
+	buttons_layout->addWidget(m_styles_button);
 	buttons_layout->addStretch();
 
 	QHBoxLayout* main_layout = new QHBoxLayout;

@@ -17,34 +17,13 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-//#ifndef OPENER_H
-//#define OPENER_H
+//#ifndef QLMETATYPES_H
+//#define QLMETATYPES_H
 //
-//#include <QVBoxLayout>
+//#include <QMetaType>
 //
-//#include <QLayers/qlscrollarea.h>
-//#include <QLayers/qlwidget.h>
+//#include <Layers/ldefinition.h>
 //
-//class NebulaWindow;
+//Q_DECLARE_METATYPE(Layers::LDefinition*)
 //
-//class Opener : public QLayers::QLWidget
-//{
-//	Q_OBJECT
-//
-//public:
-//	Opener(NebulaWindow* window, QWidget* parent = nullptr);
-//
-//private:
-//	void init_layout();
-//	void init_theme_scroller();
-//
-//	NebulaWindow* m_window;
-//
-//	QVBoxLayout* m_theme_vbox{ new QVBoxLayout };
-//
-//	QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
-//
-//	QWidget* m_theme_scroller_widget{ new QWidget };
-//};
-//
-//#endif // OPENER_H
+//#endif // QLMETATYPES_H  

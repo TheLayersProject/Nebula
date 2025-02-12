@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>definitions.svg</file>
+        <file>folder.svg</file>
+        <file>nebula_logo.png</file>
+        <file>nebula_logo.svg</file>
+        <file>styles.svg</file>
+        <file>themes.svg</file>
+    </qresource>
+</RCC>

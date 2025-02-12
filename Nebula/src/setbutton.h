@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -17,15 +17,15 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef THEMEBUTTON_H
-#define THEMEBUTTON_H
+#ifndef SETBUTTON_H
+#define SETBUTTON_H
 
 #include <Layers/ltheme.h>
 
 #include <QLayers/qllabel.h>
 #include <QLayers/qlwidget.h>
 
-class ThemeButton : public QLayers::QLWidget
+class SetButton : public QLayers::QLWidget
 {
 	Q_OBJECT
 
@@ -33,17 +33,27 @@ signals:
 	void clicked();
 
 public:
-	ThemeButton(Layers::LTheme* theme, QWidget* parent = nullptr);
+	SetButton(const std::filesystem::path& set_path, QWidget* parent = nullptr);
+
+	QLayers::QLGraphic* logo() const;
+
+	QString name() const;
+
+	QString publisher() const;
 
 protected:
 	bool eventFilter(QObject* object, QEvent* event) override;
 
 private:
+	void init_labels(const std::filesystem::path& set_path);
 	void init_layout();
-	void init_style(Layers::LTheme* theme);
+
+	QLayers::QLLabel* m_logo_label{ new QLayers::QLLabel };
 
 	QLayers::QLLabel* m_name_label;
 	QLayers::QLLabel* m_publisher_label;
+
+	std::filesystem::path m_set_path;
 };
 
-#endif // THEMEBUTTON_H
+#endif // SETBUTTON_H

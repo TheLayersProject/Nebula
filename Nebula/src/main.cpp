@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -21,28 +21,31 @@
 
 #include <QUuid>
 
-#include <QLayers/qlapplication.h>
-#include <QLayers/qlgithubrepo.h>
-#include <QLayers/qlupdatedialog.h>
+#include <Vortex/vapplication.h>
+#include <Vortex/vgithubrepo.h>
+//#include <QLayers/qlupdatedialog.h>
 
-using namespace QLayers;
+using namespace Vortex;
 
 int main(int argc, char* argv[])
 {
-	QLApplication app(argc, argv,
+	VApplication app(argc, argv,
 		"Nebula",
-		QUuid("f97aae7f-2076-4918-93ce-19321584f675"));
+		QUuid("b7b6ed18-8ee1-427f-bc3c-836ab21c5f87"));
 	app.set_github_repo("TheLayersProject/Nebula");
 	app.set_publisher("The Layers Project");
 	app.set_version("0.1.0");
 	app.init();
+
+	//lController.apply_style("Rainbow Borders (huntermalm).json");
+	//lController.apply_style("Red Titlebar Buttons (huntermalm).json");
 
 	//if (app.update_available())
 	//{
 	//	QLUpdateDialog update_dialog =
 	//		QLUpdateDialog(app.version(), app.latest_version());
 
-	//	update_dialog.apply_theme_item(
+	//	update_dialog.apply_definition(
 	//		activeTheme()->find_item(update_dialog.path()));
 
 	//	if (update_dialog.exec())
@@ -53,7 +56,7 @@ int main(int argc, char* argv[])
 	//}
 
 	NebulaWindow window;
-	window.apply_theme_item(activeTheme()->find_item(window.path()));
+	//window.apply_definition(activeTheme()->find_item(window.path()));
 	window.show();
 
 	return app.exec();

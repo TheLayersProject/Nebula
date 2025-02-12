@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="222px" height="214px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2;">
+    <g transform="matrix(1,0,0,1,-212.5,-757.67)">
+        <g id="Styles-Icon" serif:id="Styles Icon" transform="matrix(1,0,0,1,92,-21)">
+            <g transform="matrix(0.805894,0,0,0.805894,36.2604,684.381)">
+                <path fill="#000000" d="M256,297C261.333,290.667 378.667,160.667 380,149C374.667,130 361,121.333 346,117C331.333,120.667 212.333,252.667 209,255"/>
+            </g>
+            <g transform="matrix(0.805894,0,0,0.805894,36.2604,684.381)">
+                <path id="Handle-COLOR" serif:id="Handle COLOR" fill="#39506B" opacity="0.40" d="M256,297C261.333,290.667 378.667,160.667 380,149C374.667,130 361,121.333 346,117C331.333,120.667 212.333,252.667 209,255"/>
+            </g>
+            <g transform="matrix(0.805894,0,0,0.805894,36.2604,684.381)">
+                <path id="Tip" fill="#3CF9FF" d="M256,297C254.333,381 179,388 123,378C74.333,363 137,377 139,340C139,282.667 167.667,253.333 209,255C233,255.667 256.333,267.333 256,297Z"/>
+            </g>
+        </g>
+    </g>
+</svg>

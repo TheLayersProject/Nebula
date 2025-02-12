@@ -48,6 +48,10 @@ x64/
 debug/
 release/
 
+# VSCode
+.vscode/
+bin/
+
 # User-specific files
 *.rsuser
 *.suo
@@ -56,4 +60,15 @@ release/
 *.sln.docstates
 
 # Private Directories
-Concepts/
+concepts/
+
+# Image Editing Files
+*.psd
+*.afphoto
+
+# MacOS
+.DS_Store
+
+# CMake
+CMakeLists.txt
+CMakePresets.json

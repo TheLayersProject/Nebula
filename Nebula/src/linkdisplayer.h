@@ -17,34 +17,31 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-//#ifndef OPENER_H
-//#define OPENER_H
-//
-//#include <QVBoxLayout>
-//
-//#include <QLayers/qlscrollarea.h>
-//#include <QLayers/qlwidget.h>
-//
-//class NebulaWindow;
-//
-//class Opener : public QLayers::QLWidget
-//{
-//	Q_OBJECT
-//
-//public:
-//	Opener(NebulaWindow* window, QWidget* parent = nullptr);
-//
-//private:
-//	void init_layout();
-//	void init_theme_scroller();
-//
-//	NebulaWindow* m_window;
-//
-//	QVBoxLayout* m_theme_vbox{ new QVBoxLayout };
-//
-//	QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
-//
-//	QWidget* m_theme_scroller_widget{ new QWidget };
-//};
-//
-//#endif // OPENER_H
+#ifndef LINKDISPLAYER_H
+#define LINKDISPLAYER_H
+
+#include <Layers/llink.h>
+#include <QLayers/qllabel.h>
+#include <QLayers/qlwidget.h>
+
+class LinkDisplayer : public QLayers::QLWidget
+{
+	Q_OBJECT
+
+public:
+	LinkDisplayer(QWidget* parent = nullptr);
+
+	void set_link(Layers::LLink* link);
+
+private:
+	void init_attributes();
+	void init_layout();
+
+	QLayers::QLLabel* m_label{ new QLayers::QLLabel };
+
+	QLayers::QLLabel* m_link_icon_label =
+		new QLayers::QLLabel(
+			QLayers::QLGraphic(":/images/chain_link.svg", QSize(8, 18)));
+};
+
+#endif // LINKDISPLAYER_H

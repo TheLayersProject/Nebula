@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2023 The Layers Project
+ * Copyright (C) 2025 The Layers Project
  *
  * This file is part of the Nebula application.
  *
@@ -20,9 +20,9 @@
 #ifndef NEBULAWINDOW_H
 #define NEBULAWINDOW_H
 
-#include <QLayers/qlmainwindow.h>
+#include <Vortex/vmainwindow.h>
 
-class NebulaWindow: public QLayers::QLMainWindow
+class NebulaWindow: public Vortex::VMainWindow
 {
 	Q_OBJECT
 
