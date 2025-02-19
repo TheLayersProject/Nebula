@@ -114,7 +114,7 @@ private:
 	QLayers::QLButton* m_new_link_button{
 		new QLayers::QLButton(
 			QLayers::QLGraphic(
-				":/images/new_theme.svg", QSize(18, 18)), "New Link") };
+				":/images/plus.svg", QSize(18, 18)), "New Link") };
 
 	QLayers::QLButton* m_break_link_button{
 		new QLayers::QLButton(

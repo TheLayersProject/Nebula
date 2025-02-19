@@ -25,8 +25,6 @@
 #include <Layers/lstring.h>
 #include <QLayers/qlbutton.h>
 
-#include "setbutton.h"
-
 using Layers::LString;
 using Layers::LDefinition;
 using Layers::LTheme;
@@ -98,6 +96,11 @@ void SetSelector::apply_definition(Layers::LDefinition* def)
 	//	if (QLButton* version_button = dynamic_cast<QLButton*>(child_object))
 	//		version_button->apply_definition(definition()->find_item(
 	//			version_button->objectName().toStdString().c_str()));
+}
+
+QList<SetButton*>& SetSelector::set_buttons()
+{
+	return m_set_buttons;
 }
 
 //QList<QLDefinable*> SetSelector::child_qldefinables(
@@ -181,10 +184,7 @@ void SetSelector::init_set_scroller()
 		{
 			SetButton* set_button = new SetButton(entry.path());
 			set_buttons_vbox->addWidget(set_button);
-
-			//if (m_sidebar->definition())
-			//	set_button->apply_definition(m_sidebar->definition()->find_item(
-			//		set_button->objectName().toStdString().c_str()));
+			m_set_buttons.append(set_button);
 
 			connect(set_button, &SetButton::clicked,
 				[this, set_button, entry]

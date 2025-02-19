@@ -22,12 +22,16 @@
 #include <QEvent>
 #include <Layers/lalgorithms.h>
 #include <Layers/lstring.h>
-#include <Vortex/vthemebutton.h>
+
+#include "newthemedialog.h"
+#include "system.h"
 
 using Layers::LString;
 using Layers::LDefinition;
 using Layers::LTheme;
+using QLayers::QLButton;
 using QLayers::QLGrowingDotProgressIndicator;
+using QLayers::QLLineEditor;
 using Vortex::VTabBar;
 using Vortex::VThemeButton;
 
@@ -111,17 +115,78 @@ ThemeEditor::ThemeEditor(QWidget* parent) :
 			m_status_label->show();
 		});
 
-	m_options_bar->setFixedHeight(40);
-	m_options_bar->set_object_name("Status Bar");
+	m_options_bar->setFixedHeight(50);
+	m_options_bar->set_object_name("Options Bar");
 
-	m_check_label->set_object_name("Check Label");
-	m_check_label->hide();
+	m_search_box->set_object_name("Search Box");
+	m_search_box->set_pretext("Search");
+	m_search_box->setFixedSize(290, 40);
+	m_search_box->left_padding()->set_value(10.0);
 
-	m_status_label->set_object_name("Status Label");
-	m_status_label->hide();
+	connect(m_search_box, &QLLineEditor::text_edited,
+		[this](const QString& text)
+		{
+			LString converted_text = text.toStdString().c_str();
 
-	m_save_progress_indicator->set_object_name("Save Progress Indicator");
-	m_save_progress_indicator->hide();
+			for (const auto& [theme, theme_button] : theme_buttons)
+			{
+				/*
+					If theme->object_name() or theme->publisher() contains *text*,
+					then the theme_button should be visible.
+
+					Otherwise, the theme_button should be hidden.
+				*/
+
+				if (converted_text.empty())
+				{
+					theme_button->setVisible(true);
+				}
+				else
+				{
+					if (theme->object_name().starts_with(converted_text) ||
+						theme->publisher().starts_with(converted_text))
+					{
+						theme_button->setVisible(true);
+					}
+					else
+					{
+						theme_button->setVisible(false);
+					}
+				}
+			}
+		});
+
+	m_new_theme_button->set_object_name("New Theme Button");
+	m_new_theme_button->setFixedSize(40, 40);
+	m_new_theme_button->layout()->setContentsMargins(0, 0, 0, 0);
+	m_new_theme_button->set_pointing_hand_cursor();
+
+	connect(m_new_theme_button, &QLButton::clicked,
+		[this]
+		{
+			NewThemeDialog new_theme_dialog = NewThemeDialog();
+
+			QLayers::center(&new_theme_dialog, window());
+
+			if (new_theme_dialog.exec())
+			{
+				std::string username = get_current_username();
+
+				// Create theme
+				LTheme* theme = new LTheme(
+					new_theme_dialog.name(),
+					username.c_str());
+
+				// Save theme to system
+				theme->save();
+
+				// Add theme to controller
+				lController.add_theme(theme);
+
+				// Update interface
+				add_theme_button(theme);
+			}
+		});
 }
 
 void ThemeEditor::apply_definition(Layers::LDefinition* def)
@@ -146,14 +211,14 @@ bool ThemeEditor::eventFilter(QObject* object, QEvent* event)
 	return QLWidget::eventFilter(object, event);
 }
 
-void ThemeEditor::edit_definition(LDefinition* def)
+void ThemeEditor::edit_theme(LTheme* theme)
 {
 	clear_attr_editors();
 
 	QMap<QString, QWidget*> organized_widgets;
 	QMap<QString, AttributeEditorGroup*> attr_editor_groups;
 
-	for (auto group_name : def->attribute_group_names())
+	for (auto group_name : theme->attribute_group_names())
 	{
 		QString q_group_name = QString::fromStdString(group_name.c_str());
 
@@ -169,7 +234,7 @@ void ThemeEditor::edit_definition(LDefinition* def)
 		organized_widgets[q_group_name] = attr_editor_group;
 	}
 
-	for (const auto& [key, attr] : def->attributes())
+	for (const auto& [key, attr] : theme->attributes())
 	{
 		AttributeEditor* attr_editor = new AttributeEditor(attr);
 		attr_editor->set_object_name("Attribute Editors");
@@ -179,13 +244,15 @@ void ThemeEditor::edit_definition(LDefinition* def)
 					attr_editor->objectName().toStdString().c_str()));
 
 		attr_editor->fill_control()->fill()->on_change(
-			[this] {
-				reset_save_timer();
+			[this, theme] {
+				//reset_save_timer();
+				theme->save();
 			});
 
 		attr_editor->slider()->value()->on_change(
-			[this] {
-				reset_save_timer();
+			[this, theme] {
+				//reset_save_timer();
+				theme->save();
 			});
 
 		LString attr_name = attr->object_name();
@@ -213,7 +280,7 @@ void ThemeEditor::edit_definition(LDefinition* def)
 
 	update_attr_editors_max_width();
 
-	m_path_text = QString::fromStdString(def->path().c_str());
+	m_path_text = QString::fromStdString(theme->path().c_str());
 	update_path_label();
 }
 
@@ -229,7 +296,8 @@ void ThemeEditor::reset_save_timer()
 
 void ThemeEditor::init_layout()
 {
-	set_buttons_vbox->setContentsMargins(0, 0, 0, 0);
+	theme_buttons_vbox->setContentsMargins(0, 0, 0, 0);
+	theme_buttons_vbox->addStretch();
 
 	QVBoxLayout* sidebar_layout = new QVBoxLayout;
 	sidebar_layout->addWidget(m_theme_scroller);
@@ -264,16 +332,15 @@ void ThemeEditor::init_layout()
 	m_hbox_layout->setContentsMargins(0, 0, 0, 0);
 	m_hbox_layout->setSpacing(0);
 
-	m_options_bar_layout->addWidget(m_save_progress_indicator);
-	m_options_bar_layout->addWidget(m_check_label);
-	m_options_bar_layout->addWidget(m_status_label);
+	m_options_bar_layout->addWidget(m_search_box);
+	m_options_bar_layout->addWidget(m_new_theme_button);
 	m_options_bar_layout->addStretch();
 	m_options_bar_layout->setContentsMargins(8, 0, 8, 0);
-	m_options_bar_layout->setSpacing(8);
+	m_options_bar_layout->setSpacing(10);
 	m_options_bar->setLayout(m_options_bar_layout);
 
-	m_main_layout->addLayout(m_hbox_layout);
 	m_main_layout->addWidget(m_options_bar);
+	m_main_layout->addLayout(m_hbox_layout);
 	m_main_layout->setContentsMargins(0, 0, 0, 0);
 	m_main_layout->setSpacing(0);
 
@@ -285,30 +352,32 @@ void ThemeEditor::init_theme_scroller()
 {
 	for (auto& _theme : lController.themes())
 	{
-		LTheme* theme = _theme.second;
-
-		if (!theme->publisher().empty())
-		{
-			VThemeButton* theme_button = new VThemeButton(theme);
-			set_buttons_vbox->addWidget(theme_button);
-
-			connect(theme_button, &VThemeButton::clicked,
-				[this, theme]
-				{
-					edit_definition(theme);
-
-					//m_window->open_central_widget(new Editor(theme),
-					//theme->object_name().c_str());
-
-					qDebug() << "ThemeEditor: Setting theme: " + QString(theme->object_name().c_str());
-				});
-		}
+		add_theme_button(_theme.second);
 	}
 
-	set_buttons_vbox->addStretch();
-
-	m_theme_scroller_widget->setLayout(set_buttons_vbox);
+	m_theme_scroller_widget->setLayout(theme_buttons_vbox);
 	m_theme_scroller->setWidget(m_theme_scroller_widget);
+}
+
+void ThemeEditor::add_theme_button(LTheme* theme)
+{
+	if (!theme->publisher().empty())
+	{
+		VThemeButton* theme_button = new VThemeButton(theme);
+		theme_buttons_vbox->insertWidget(theme_buttons_vbox->count() - 1, theme_button);
+		theme_buttons[theme] = theme_button;
+
+		connect(theme_button, &VThemeButton::clicked,
+			[this, theme]
+			{
+				edit_theme(theme);
+
+				//m_window->open_central_widget(new Editor(theme),
+				//theme->object_name().c_str());
+
+				qDebug() << "ThemeEditor: Setting theme: " + QString(theme->object_name().c_str());
+			});
+	}
 }
 
 void ThemeEditor::clear_attr_editors()

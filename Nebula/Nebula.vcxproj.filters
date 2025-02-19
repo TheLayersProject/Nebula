@@ -89,6 +89,9 @@
     <QtMoc Include="src\linkdisplayer.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="src\newthemedialog.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -160,6 +163,9 @@
     <ClCompile Include="src\linkdisplayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\newthemedialog.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\metatypes.h">
@@ -169,6 +175,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\opener.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

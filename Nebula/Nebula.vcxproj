@@ -106,6 +106,7 @@ xcopy /y /d /i /r "$(Vortex)$(IntDir)Vortexd.dll" "$(OutDir)"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\linkdisplayer.cpp" />
+    <ClCompile Include="src\newthemedialog.cpp" />
     <ClCompile Include="src\seteditor.cpp" />
     <ClCompile Include="src\setselector.cpp" />
     <ClCompile Include="src\definitioneditor.cpp" />
@@ -135,6 +136,8 @@ xcopy /y /d /i /r "$(Vortex)$(IntDir)Vortexd.dll" "$(OutDir)"</Command>
     <QtMoc Include="src\nebulawindow.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\system.h" />
+    <QtMoc Include="src\newthemedialog.h" />
     <ClInclude Include="src\opener.h" />
   </ItemGroup>
   <ItemGroup>

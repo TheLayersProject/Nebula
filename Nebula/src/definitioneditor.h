@@ -53,7 +53,7 @@ private:
 
 	QLWidget* m_options_bar{ new QLWidget };
 
-	QLayers::QLLineEditor* set_search_box{ new QLayers::QLLineEditor };
+	QLayers::QLLineEditor* m_search_box{ new QLayers::QLLineEditor };
 
 	SetDisplayer* set_displayer{ new SetDisplayer };
 

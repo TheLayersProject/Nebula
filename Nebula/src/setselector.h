@@ -31,6 +31,7 @@
 #include "attributeeditor.h"
 #include "attributeeditorgroup.h"
 #include "definitionview.h"
+#include "setbutton.h"
 
 class SetSelector : public QLayers::QLWidget
 {
@@ -47,6 +48,8 @@ public:
 	SetSelector(QWidget* parent = nullptr);
 
 	virtual void apply_definition(Layers::LDefinition* def) override;
+
+	QList<SetButton*>& set_buttons();
 
 	//virtual QList<QLayers::QLDefinable*> child_qldefinables(
 	//	Qt::FindChildOptions options = Qt::FindDirectChildrenOnly
@@ -65,6 +68,8 @@ private:
 	void clear_version_buttons();
 
 	void update_version_buttons_max_width();
+
+	QList<SetButton*> m_set_buttons;
 
 	QVBoxLayout* m_main_layout{ new QVBoxLayout };
 

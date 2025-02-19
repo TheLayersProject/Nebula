@@ -29,6 +29,7 @@ using Layers::LString;
 using Layers::LDefinition;
 using Layers::LTheme;
 using QLayers::QLGraphic;
+using QLayers::QLLineEditor;
 using Vortex::VTabBar;
 
 DefinitionEditor::DefinitionEditor(QWidget* parent) :
@@ -45,10 +46,34 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 	m_options_bar->setFixedHeight(50);
 	m_options_bar->set_object_name("Options Bar");
 
-	set_search_box->set_object_name("Set Search Box");
-	set_search_box->set_pretext("Search");
-	set_search_box->setFixedSize(290, 40);
-	set_search_box->left_padding()->set_value(10.0);
+	m_search_box->set_object_name("Search Box");
+	m_search_box->set_pretext("Search");
+	m_search_box->setFixedSize(290, 40);
+	m_search_box->left_padding()->set_value(10.0);
+
+	connect(m_search_box, &QLLineEditor::text_edited,
+		[this](const QString& text)
+		{
+			for (SetButton* set_button : set_selector->set_buttons())
+			{
+				if (text.isEmpty())
+				{
+					set_button->setVisible(true);
+				}
+				else
+				{
+					if (set_button->name().startsWith(text) ||
+						set_button->publisher().startsWith(text))
+					{
+						set_button->setVisible(true);
+					}
+					else
+					{
+						set_button->setVisible(false);
+					}
+				}
+			}
+		});
 
 	set_displayer->set_object_name("Set Displayer");
 	set_displayer->setFixedSize(290, 40);
@@ -60,7 +85,7 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 		[this](const QString& name, const QString& publisher,
 			const QLGraphic& logo)
 		{
-			set_search_box->hide();
+			m_search_box->hide();
 
 			set_displayer->setup(name, publisher, logo);
 			set_displayer->show();
@@ -69,7 +94,7 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 	connect(set_selector, &SetSelector::selected,
 		[this](const QString& name, const QString& publisher)
 		{
-			set_search_box->hide();
+			m_search_box->hide();
 
 			set_displayer->setup(name, publisher);
 			set_displayer->show();
@@ -88,7 +113,7 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 	connect(set_displayer, &SetDisplayer::closed,
 		[this]
 		{
-			set_search_box->show();
+			m_search_box->show();
 
 			set_displayer->hide();
 
@@ -101,7 +126,7 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 
 void DefinitionEditor::init_layout()
 {
-	m_options_bar_layout->addWidget(set_search_box);
+	m_options_bar_layout->addWidget(m_search_box);
 	m_options_bar_layout->addWidget(set_displayer);
 	m_options_bar_layout->addStretch();
 	m_options_bar_layout->setContentsMargins(8, 0, 8, 0);

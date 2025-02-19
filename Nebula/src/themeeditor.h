@@ -28,6 +28,7 @@
 #include <QLayers/qlscrollarea.h>
 #include <QLayers/qlwidget.h>
 #include <Vortex/vtabbar.h>
+#include <Vortex/vthemebutton.h>
 
 #include "attributeeditor.h"
 #include "attributeeditorgroup.h"
@@ -46,13 +47,15 @@ protected:
 	bool eventFilter(QObject* object, QEvent* event) override;
 
 public slots:
-	void edit_definition(Layers::LDefinition* def);
+	void edit_theme(Layers::LTheme* theme);
 
 	void reset_save_timer();
 
 private:
 	void init_layout();
 	void init_theme_scroller();
+
+	void add_theme_button(Layers::LTheme* theme);
 
 	void clear_attr_editors();
 
@@ -62,6 +65,8 @@ private:
 
 	//Layers::LTheme* m_theme;
 
+	std::map<Layers::LTheme*, Vortex::VThemeButton*> theme_buttons;
+
 	QVBoxLayout* m_main_layout{ new QVBoxLayout };
 
 	QHBoxLayout* m_hbox_layout{ new QHBoxLayout };
@@ -70,7 +75,13 @@ private:
 
 	QHBoxLayout* m_options_bar_layout{ new QHBoxLayout };
 
-	QVBoxLayout* set_buttons_vbox{ new QVBoxLayout };
+	QVBoxLayout* theme_buttons_vbox{ new QVBoxLayout };
+
+	QLayers::QLLineEditor* m_search_box{ new QLayers::QLLineEditor };
+
+	QLayers::QLButton* m_new_theme_button{
+		new QLayers::QLButton(
+			QLayers::QLGraphic(":/images/new_theme.svg", QSize(26, 26))) };
 
 	QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
 
