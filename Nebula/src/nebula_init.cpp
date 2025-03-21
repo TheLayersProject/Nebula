@@ -24,17 +24,28 @@
 #include <Layers/lstring.h>
 #include <Layers/lcontroller.h>
 
+namespace Layers {
+    namespace Resources {
+        extern void initResources_definitions();
+    }
+}
+
 void initialize_resources()
 {
     Q_INIT_RESOURCE(images);
+
+    // Initialize Layers resources
+    Layers::Resources::initResources_definitions();
 }
 
-namespace Nebula {
-    Initializer::Initializer() {
-        lController.include("Nebula (The Layers Project)/0.1.0", true);
-        qDebug() << "LOADED Nebula DEFINITIONS!";
-
+namespace Nebula
+{
+    Initializer::Initializer()
+    {
         initialize_resources();
+
+        lController.include_internal("/definitions/nebula");
+        qDebug() << "Nebula: Loaded Definitions";
     }
 
     static Initializer nebula_initializer;

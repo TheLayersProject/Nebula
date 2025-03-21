@@ -79,6 +79,9 @@ xcopy /y /d /i /r "$(QLayers)$(IntDir)QLayersd.dll" "$(OutDir)"
 xcopy /y /d /i /r "$(Fusion)$(IntDir)Fusiond.dll" "$(OutDir)"
 xcopy /y /d /i /r "$(Vortex)$(IntDir)Vortexd.dll" "$(OutDir)"</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>"$(Layers)$(IntDir)LayersResourceCompiler.exe" "$(ProjectDir)definitions\definitions.lrc" "$(ProjectDir)definitions\definitions.cpp"</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="Configuration">
     <ClCompile>
@@ -105,6 +108,7 @@ xcopy /y /d /i /r "$(Vortex)$(IntDir)Vortexd.dll" "$(OutDir)"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="definitions\definitions.cpp" />
     <ClCompile Include="src\linkdisplayer.cpp" />
     <ClCompile Include="src\newthemedialog.cpp" />
     <ClCompile Include="src\seteditor.cpp" />

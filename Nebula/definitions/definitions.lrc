@@ -1,0 +1,11 @@
+{
+    "/definitions/nebula": [
+        "attributeeditors.json",
+        "definitioneditor.json",
+        "homebutton.json",
+        "nebula.json",
+        "newthemedialog.json",
+        "opener.json"
+        "themeeditor.json"
+    ]
+}

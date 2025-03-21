@@ -1,0 +1,207 @@
+{
+    "Main Window/Definition Editor": {
+        "_include": "QLayers/qlwidget.json::Widget",
+        "children": {
+            "Dividers": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "attributes": {
+                    "Fill": "L:Theme/Tertiary"
+                }
+            },
+            "Options Bar": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "attributes": {
+                    "Fill": "L:Theme/Tertiary"
+                },
+                "children": {
+                    "Set Displayer": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Corner Radii.Bottom Left": 3,
+                            "Corner Radii.Bottom Right": 3,
+                            "Corner Radii.Top Left": 3,
+                            "Corner Radii.Top Right": 3
+                        },
+                        "children": {
+                            "Close Button": {
+                                "_include": "QLayers/qlwidget.json::Widget",
+                                "attributes": {
+                                    "Fill": "#00ffffff"
+                                },
+                                "children": {
+                                    "Graphic": {
+                                        "children": {
+                                            "Svg": {
+                                                "attributes": {
+                                                    "Color": {
+                                                        "states": {
+                                                            "Selected": "#e95454"
+                                                        },
+                                                        "value": "#5f5f5f"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "Name Label": "QLayers/qllabel.json::Label",
+                            "Publisher Label": "QLayers/qllabel.json::Label"
+                        }
+                    },
+                    "Search Box": {
+                        "_include": "QLayers/qllineeditor.json::Line Editor",
+                        "attributes": {
+                            "Corner Radii.Bottom Left": 3,
+                            "Corner Radii.Bottom Right": 3,
+                            "Corner Radii.Top Left": 3,
+                            "Corner Radii.Top Right": 3,
+                            "Fill": "L:Theme/Primary"
+                        },
+                        "children": {
+                            "Pretext Label": "QLayers/qllabel.json::Label"
+                        }
+                    }
+                }
+            },
+            "Path Label": "QLayers/qllabel.json::Label",
+            "Set Editor": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "children": {
+                    "Attribute Editors": "attributeeditors.json::Attribute Editors",
+                    "Attribute Editor Groups": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "children": {
+                            "Collapse Button": {
+                                "_include": "QLayers/qlwidget.json::Widget",
+                                "children": {
+                                    "Graphic": {
+                                        "children": {
+                                            "Svg": {
+                                                "attributes": {
+                                                    "Color": {
+                                                        "states": {
+                                                            "Selected": "L:Theme/Foreground"
+                                                        },
+                                                        "value": "#96989d"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "Graphic After": {
+                                        "children": {
+                                            "Svg": {
+                                                "attributes": {
+                                                    "Color": {
+                                                        "states": {
+                                                            "Selected": "L:Theme/Foreground"
+                                                        },
+                                                        "value": "#96989d"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "Label": "QLayers/qllabel.json::Label"
+                        }
+                    },
+                    "Dividers": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Fill": "L:Theme/Tertiary"
+                        }
+                    },
+                    "Editor": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "children": {
+                            "Attribute Editors Scroll Area": {
+                                "children": {
+                                    "Vertical ScrollBar": "QLayers/qlscrollbar.json::Scroll Bar"
+                                }
+                            },
+                            "Sidebar": {
+                                "_include": "QLayers/qlwidget.json::Widget",
+                                "attributes": {
+                                    "Fill": "L:Theme/Secondary"
+                                },
+                                "children": {
+                                    "Definition View": {
+                                        "attributes": {
+                                            "Fill": "L:Theme/Secondary",
+                                            "Text Color": "L:Theme/Foreground"
+                                        },
+                                        "children": {
+                                            "Vertical ScrollBar": "QLayers/qlscrollbar.json::Scroll Bar"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "Tab Bar": "Vortex/vtabbar.json::Tab Bar"
+                }
+            },
+            "Set Selector": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "children": {
+                    "Dividers": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Fill": "L:Theme/Tertiary"
+                        }
+                    },
+                    "Sidebar": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Fill": "L:Theme/Secondary"
+                        },
+                        "children": {
+                            "Set Button": {
+                                "_include": "QLayers/qlwidget.json::Widget",
+                                "attributes": {
+                                    "Corner Radii.Bottom Left": 5,
+                                    "Corner Radii.Bottom Right": 5,
+                                    "Corner Radii.Top Left": 5,
+                                    "Corner Radii.Top Right": 5,
+                                    "Fill": "L:Theme/Tertiary"
+                                },
+                                "children": {
+                                    "Name Label": "QLayers/qllabel.json::Label",
+                                    "Publisher Label": "QLayers/qllabel.json::Label"
+                                }
+                            },
+                            "Set Scroller": {
+                                "children": {
+                                    "Vertical ScrollBar": "QLayers/qlscrollbar.json::Scroll Bar"
+                                }
+                            }
+                        }
+                    },
+                    "Version Button": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Corner Radii.Bottom Left": 5,
+                            "Corner Radii.Bottom Right": 5,
+                            "Corner Radii.Top Left": 5,
+                            "Corner Radii.Top Right": 5,
+                            "Fill": "L:Theme/Tertiary"
+                        },
+                        "children": {
+                            "Text Label": "QLayers/qllabel.json::Label"
+                        }
+                    }
+                }
+            },
+            "Sidebar": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "attributes": {
+                    "Fill": "L:Theme/Secondary"
+                }
+            },
+            "Tab Bar": "Vortex/vtabbar.json::Tab Bar"
+        }
+    }
+}

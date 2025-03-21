@@ -1,0 +1,25 @@
+{
+    "Home Button": {
+        "_include": "QLayers/qlwidget.json::Widget",
+        "attributes": {
+            "Corner Radii.Bottom Left": 3,
+            "Corner Radii.Bottom Right": 3,
+            "Corner Radii.Top Left": 3,
+            "Corner Radii.Top Right": 3,
+            "Fill": "L:Theme/Tertiary"
+        },
+        "children": {
+            "Description Label": "QLayers/qllabel.json::Label",
+            "Graphic": {
+                "children": {
+                    "Svg": {
+                        "attributes": {
+                            "Color": "L:Theme/Foreground"
+                        }
+                    }
+                }
+            },
+            "Title Label": "QLayers/qllabel.json::Label"
+        }
+    }
+}

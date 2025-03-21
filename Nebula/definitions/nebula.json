@@ -1,0 +1,10 @@
+{
+    "Main Window/Nebula": {
+        "_include": "QLayers/qlwidget.json::Widget",
+        "children": {
+            "Definitions Button": "homebutton.json::Home Button",
+            "Themes Button": "homebutton.json::Home Button",
+            "Styles Button": "homebutton.json::Home Button"
+        }
+    }
+}

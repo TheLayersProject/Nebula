@@ -1,0 +1,70 @@
+{
+    "New Theme Dialog": {
+        "_include": "QLayers/qldialog.json::Dialog",
+        "children": {
+            "Create Button": {
+                "_include": "QLayers/qlwidget.json::Widget",
+                "attributes": {
+                    "Corner Radii.Bottom Left": 3,
+                    "Corner Radii.Bottom Right": 3,
+                    "Corner Radii.Top Left": 3,
+                    "Corner Radii.Top Right": 3,
+                    "Fill": "L:Theme/Tertiary"
+                },
+                "children": {
+                    "Graphic": {
+                        "children": {
+                            "Svg": {
+                                "attributes": {
+                                    "Color": "L:Theme/Foreground"
+                                }
+                            }
+                        }
+                    },
+                    "Text Label": "QLayers/qllabel.json::Label"
+                }
+            },
+            "Name Editor": {
+                "_include": "QLayers/qllineeditor.json::Line Editor",
+                "attributes": {
+                    "Corner Radii.Bottom Left": 3,
+                    "Corner Radii.Bottom Right": 3,
+                    "Corner Radii.Top Left": 3,
+                    "Corner Radii.Top Right": 3,
+                    "Fill": "L:Theme/Secondary"
+                },
+                "children": {
+                    "Pretext Label": "QLayers/qllabel.json::Label"
+                }
+            },
+            "Titlebar": {
+                "children": {
+                    "Exit Button": {
+                        "_include": "QLayers/qlwidget.json::Widget",
+                        "attributes": {
+                            "Corner Radii.Top Right": 7,
+                            "Fill": "#00000000"
+                        },
+                        "children": {
+                            "Graphic": {
+                                "_include": "QLayers/qlwidget.json::Widget",
+                                "children": {
+                                    "Svg": {
+                                        "attributes": {
+                                            "Color": {
+                                                "states": {
+                                                    "Selected": "#e33036"
+                                                },
+                                                "value": "#6a6a6a"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
