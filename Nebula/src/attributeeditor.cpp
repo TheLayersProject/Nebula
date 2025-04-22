@@ -112,7 +112,9 @@ AttributeEditor::AttributeEditor(LAttribute* attr, QWidget* parent) :
 	m_features_tab_bar->set_object_name("Features Tab Bar");
 	m_features_tab_bar->setFixedHeight(40);
 	m_features_tab_bar->add_tab(
-		QLGraphic(":/images/chain_link.svg", QSize(11, 24)), "Links");
+		std::make_unique<QLGraphic>(
+			":/images/chain_link.svg", QSize(11, 24)),
+		"Links");
 	m_features_tab_bar->set_current_index(0);
 
 	connect(m_features_tab_bar, &VTabBar::index_changed, [this]
@@ -238,7 +240,8 @@ AttributeEditor::AttributeEditor(LAttribute* attr, QWidget* parent) :
 				if (parent_theme_item->is_overridable())
 				{
 					m_features_tab_bar->add_tab(
-						QLGraphic(":/images/overrides_icon.svg", QSize(13, 24)),
+						std::make_unique<QLGraphic>(
+							":/images/overrides_icon.svg", QSize(13, 24)),
 						"Overrides");
 
 					VTab* overrides_tab = m_features_tab_bar->tabs().last();

@@ -28,8 +28,6 @@ AttributeEditorGroup::AttributeEditorGroup(
 ) :
 	QLWidget(parent)
 {
-	init_attributes();
-
 	m_label->setText(name);
 	m_label->set_object_name("Label");
 	m_label->set_font_size(12);

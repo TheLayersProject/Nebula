@@ -42,7 +42,7 @@ private:
 
 	QLayers::QLButton* m_create_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(":/images/check.svg", QSize(20, 15)),
+			std::make_unique<QLayers::QLGraphic>(":/images/check.svg", QSize(20, 15)),
 			"Create")};
 };
 

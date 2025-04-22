@@ -39,6 +39,8 @@ public:
 
 	QString name() const;
 
+	std::filesystem::path path() const;
+
 	QString publisher() const;
 
 protected:
@@ -50,8 +52,8 @@ private:
 
 	QLayers::QLLabel* m_logo_label{ new QLayers::QLLabel };
 
-	QLayers::QLLabel* m_name_label;
-	QLayers::QLLabel* m_publisher_label;
+	QLayers::QLLabel* m_name_label{ new QLayers::QLLabel };
+	QLayers::QLLabel* m_publisher_label{ new QLayers::QLLabel };
 
 	std::filesystem::path m_set_path;
 };

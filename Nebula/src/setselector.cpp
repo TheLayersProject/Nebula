@@ -24,6 +24,7 @@
 #include <Layers/lpaths.h>
 #include <Layers/lstring.h>
 #include <QLayers/qlbutton.h>
+#include <Vortex/vapplication.h>
 
 using Layers::LString;
 using Layers::LDefinition;
@@ -60,7 +61,7 @@ SetSelector::SetSelector(QWidget* parent) :
 	m_version_buttons_scroll_area->setWidget(m_version_buttons_widget);
 }
 
-void SetSelector::apply_definition(Layers::LDefinition* def)
+void SetSelector::apply_definition(Layers::LDefinition* def, bool is_top_level)
 {
 	//clear_version_buttons();
 	//m_check_label->hide();
@@ -177,65 +178,60 @@ void SetSelector::init_layout()
 
 void SetSelector::init_set_scroller()
 {
-	for (const auto& entry :
-		std::filesystem::directory_iterator(Layers::definitions_path()))
+	// Load definitions from user directories (if present)
+	QVariant _definition_directories = vApp->settings().value("definitions/directories");
+
+	if (_definition_directories.isValid())
 	{
-		if (std::filesystem::is_directory(entry.path()))
+		QStringList definition_directories = _definition_directories.toStringList();
+		for (const QString& definition_directory : definition_directories)
 		{
-			SetButton* set_button = new SetButton(entry.path());
-			set_buttons_vbox->addWidget(set_button);
-			m_set_buttons.append(set_button);
+			std::filesystem::path directory_path =
+				std::filesystem::path(definition_directory.toStdString());
 
-			connect(set_button, &SetButton::clicked,
-				[this, set_button, entry]
-				{
-					if (QLGraphic* logo = set_button->logo())
+			if (std::filesystem::is_directory(directory_path))
+			{
+				// Process each definition directory
+				qDebug() << "Nebula: SetSelector: Displaying definitions from:" << definition_directory;
+				SetButton* set_button = new SetButton(directory_path);
+				set_buttons_vbox->addWidget(set_button);
+				m_set_buttons.append(set_button);
+
+				connect(set_button, &SetButton::clicked,
+					[this, set_button, directory_path]
 					{
-						emit selected_with_logo(
-							set_button->name(),
-							set_button->publisher(),
-							QLGraphic(*logo));
-					}
-					else
-					{
-						emit selected(
-							set_button->name(),
-							set_button->publisher());
-					}
+						//if (QLGraphic* logo = set_button->logo())
+						//{
+						//	emit selected_with_logo(
+						//		set_button->name(),
+						//		set_button->publisher(),
+						//		set_button->path(),
+						//		QLGraphic(*logo));
+						//}
+						//else
+						{
+							emit selected(
+								set_button->name(),
+								set_button->publisher(),
+								set_button->path());
+						}
 
-					init_version_buttons(entry.path());
+						//init_version_buttons(directory_path);
 
-					//edit_definition(theme);
+						//edit_definition(theme);
 
-					//m_window->open_central_widget(new DefinitionEditor(theme),
-					//theme->object_name().c_str());
+						//m_window->open_central_widget(new DefinitionEditor(theme),
+						//theme->object_name().c_str());
 
-					//qDebug() << "DefinitionEditor: Setting theme: " + QString(theme->object_name().c_str());
-				});
+						//qDebug() << "DefinitionEditor: Setting theme: " + QString(theme->object_name().c_str());
+					});
+			}
 		}
 	}
-
-	//for (auto& _theme : lController.themes())
-	//{
-	//	LTheme* theme = _theme.second;
-
-	//	if (!theme->publisher().empty())
-	//	{
-	//		ThemeButton* theme_button = new ThemeButton(theme);
-	//		set_buttons_vbox->addWidget(theme_button);
-
-	//		connect(theme_button, &ThemeButton::clicked,
-	//			[this, theme]
-	//			{
-	//				edit_definition(theme);
-
-	//				//m_window->open_central_widget(new DefinitionEditor(theme),
-	//				//theme->object_name().c_str());
-
-	//				qDebug() << "DefinitionEditor: Setting theme: " + QString(theme->object_name().c_str());
-	//			});
-	//	}
-	//}
+	else
+	{
+		qDebug() << "Nebula: SetSelector: No definition directories found.";
+	}
 
 	set_buttons_vbox->addStretch();
 

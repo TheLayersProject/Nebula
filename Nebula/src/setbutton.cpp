@@ -22,6 +22,7 @@
 #include <QGraphicsOpacityEffect>
 #include <QMouseEvent>
 #include <QVBoxLayout>
+#include <Layers/lalgorithms.h>
 
 using Layers::LAttributeMap;
 using Layers::LString;
@@ -56,6 +57,11 @@ QString SetButton::name() const
 	return m_name_label->text();
 }
 
+std::filesystem::path SetButton::path() const
+{
+	return m_set_path;
+}
+
 QString SetButton::publisher() const
 {
 	return m_publisher_label->text();
@@ -84,49 +90,73 @@ bool SetButton::eventFilter(QObject* object, QEvent* event)
 
 void SetButton::init_labels(const std::filesystem::path& set_path)
 {
-	// Extract the directory name from the path
-	std::string dir_name = set_path.filename().string();
+	// Construct the path to the _meta.json file
+	std::filesystem::path meta_path = set_path / "_meta.json";
 
-	// Find the position of the first opening and closing parentheses
-	size_t open_paren = dir_name.find('(');
-	size_t close_paren = dir_name.find(')');
-
-	if (open_paren != std::string::npos &&
-		close_paren != std::string::npos &&
-		open_paren < close_paren)
+	if (std::filesystem::exists(meta_path))
 	{
-		// Extract the application name and trim whitespace
-		std::string app_name = dir_name.substr(0, open_paren);
-		app_name.erase(app_name.find_last_not_of(" ") + 1); // Trim trailing spaces
+		// Open and read the _meta.json file into a string
+		std::ifstream meta_file(meta_path);
+		std::stringstream buffer;
+		buffer << meta_file.rdbuf();
+		std::string json_str = Layers::remove_whitespace(buffer.str());
 
-		// Extract the publisher name and trim whitespace
-		std::string publisher_name = dir_name.substr(open_paren + 1, close_paren - open_paren - 1);
-		publisher_name.erase(publisher_name.find_last_not_of(" ") + 1); // Trim trailing spaces
+		// Parse the JSON using your JSON functionality
+		Layers::LJsonLexer lexer(json_str);
+		Layers::LJsonParser parser(lexer);
+		Layers::LJsonObject meta = parser.parse_object();
 
-		m_name_label = new QLLabel(app_name.c_str());
+		// Extract the name and publisher from the JSON object
+		std::string app_name = meta["name"].to_string().c_str();
+		std::string publisher_name = meta["publisher"].to_string().c_str();
+
+		// Set up the name label
+		m_name_label->setText(app_name.c_str());
 		m_name_label->set_object_name("Name Label");
 		m_name_label->set_bold();
 
+		// Set up the publisher label with opacity
 		QGraphicsOpacityEffect* publisher_opacity = new QGraphicsOpacityEffect;
 		publisher_opacity->setOpacity(0.6);
-
-		m_publisher_label = new QLLabel(publisher_name.c_str());
+		m_publisher_label->setText(publisher_name.c_str());
 		m_publisher_label->setGraphicsEffect(publisher_opacity);
 		m_publisher_label->set_object_name("Publisher Label");
 		m_publisher_label->set_font_size_f(10.5);
-	}
 
-	std::filesystem::path logo_path = set_path / "logo.svg";
-
-	if (std::filesystem::exists(logo_path))
-	{
-		m_logo_label->set_graphic(
-			QLGraphic(QString::fromStdString(logo_path.string())));
-		m_logo_label->setMaximumWidth(35);
+		if (meta.count("logo"))
+		{
+			std::string logo_rel_path = meta["logo"].to_string().c_str();
+			if (!logo_rel_path.empty())
+			{
+				// Construct the full logo path relative to the set directory
+				std::filesystem::path logo_path = set_path / logo_rel_path;
+				if (std::filesystem::exists(logo_path))
+				{
+					m_logo_label->set_graphic(
+						std::make_unique<QLayers::QLGraphic>(
+							QString::fromStdString(logo_path.string())));
+					m_logo_label->setMaximumWidth(35);
+				}
+				else
+				{
+					m_logo_label->hide();
+				}
+			}
+			else
+			{
+				m_logo_label->hide();
+			}
+		}
+		else
+		{
+			m_logo_label->hide();
+		}
 	}
 	else
 	{
-		m_logo_label->hide();
+		// Fallback if _meta.json is missing: set default texts or leave blank
+		m_name_label->setText("Unknown");
+		m_publisher_label->setText("");
 	}
 }
 

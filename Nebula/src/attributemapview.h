@@ -56,10 +56,10 @@ protected:
 
 private:
 	Layers::LAttribute* m_fill{
-		new Layers::LAttribute("Fill", "#ffffff", this) };
+		lMakeDefinableAttribute(this, "Fill", "#ffffff") };
 
 	Layers::LAttribute* m_text_color{
-		new Layers::LAttribute("Text Color", "#000000", this) };
+		lMakeDefinableAttribute(this, "Text Color", "#000000") };
 
 	QLayers::QLScrollBar* m_horizontal_scrollbar{ new QLayers::QLScrollBar };
 	QLayers::QLScrollBar* m_vertical_scrollbar{ new QLayers::QLScrollBar };

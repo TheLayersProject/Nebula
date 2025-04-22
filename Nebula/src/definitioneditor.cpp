@@ -22,6 +22,7 @@
 #include <QEvent>
 #include <Layers/lalgorithms.h>
 #include <Layers/lstring.h>
+#include <Vortex/vapplication.h>
 
 //#include "themebutton.h"
 
@@ -38,10 +39,26 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 	init_layout();
 	set_object_name("Definition Editor");
 
-	controller->include("QLayers (The Layers Project)/0.2.0");
-	controller->include("Fusion (The Layers Project)/0.1.0");
-	controller->include("Vortex (The Layers Project)/0.1.0");
-	set_editor->setup_view(controller->root_definition());
+	// Load definitions from user directories (if present)
+	//QVariant _definition_directories = vApp->settings().value("definitions/directories");
+
+	//if (_definition_directories.isValid())
+	//{
+	//	QStringList definition_directories = _definition_directories.toStringList();
+	//	for (const QString& definition_directory : definition_directories)
+	//	{
+	//		// Process each definition directory
+	//		qDebug() << "Nebula: DefinitionEditor: Loading definitions from:" << definition_directory;
+
+	//		controller->include(definition_directory.toStdString().c_str());
+	//	}
+	//}
+	//else
+	//{
+	//	qDebug() << "Nebula: DefinitionEditor: No definition directories found.";
+	//}
+
+	//set_editor->setup_view(controller->root_definition());
 
 	m_options_bar->setFixedHeight(50);
 	m_options_bar->set_object_name("Options Bar");
@@ -81,23 +98,38 @@ DefinitionEditor::DefinitionEditor(QWidget* parent) :
 
 	set_editor->hide();
 
-	connect(set_selector, &SetSelector::selected_with_logo,
-		[this](const QString& name, const QString& publisher,
-			const QLGraphic& logo)
-		{
-			m_search_box->hide();
+	//connect(set_selector, &SetSelector::selected_with_logo,
+	//	[this](const QString& name, const QString& publisher,
+	//		const std::filesystem::path& path, std::unique_ptr<QLGraphic> logo)
+	//	{
+	//		m_search_box->hide();
 
-			set_displayer->setup(name, publisher, logo);
-			set_displayer->show();
-		});
+	//		set_displayer->setup(name, publisher, std::move(logo));
+	//		set_displayer->show();
+
+	//		// New; Replaces the following connection to set_selector
+	//		set_selector->hide();
+	//		set_editor->show();
+
+	//		controller->include(path.string().c_str());
+	//		set_editor->setup_view(controller->root_definition());
+	//	});
 
 	connect(set_selector, &SetSelector::selected,
-		[this](const QString& name, const QString& publisher)
+		[this](const QString& name, const QString& publisher,
+			const std::filesystem::path& path)
 		{
 			m_search_box->hide();
 
 			set_displayer->setup(name, publisher);
 			set_displayer->show();
+
+			// New; Replaces the following connection to set_selector
+			set_selector->hide();
+			set_editor->show();
+
+			controller->include(path.string().c_str());
+			set_editor->setup_view(controller->root_definition());
 		});
 
 	connect(set_selector, &SetSelector::selected_version,

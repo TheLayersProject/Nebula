@@ -63,11 +63,11 @@ void SetDisplayer::set_version(const QString& version_tag)
 }
 
 void SetDisplayer::setup(
-	const QString& name, const QString& publisher, const QLGraphic& logo)
+	const QString& name, const QString& publisher, std::unique_ptr<QLGraphic> logo)
 {
 	m_name_label->setText(name);
 	m_publisher_label->setText(publisher);
-	m_logo_label->set_graphic(logo);
+	m_logo_label->set_graphic(std::move(logo));
 	m_logo_label->show();
 
 	QLDefinable::update();

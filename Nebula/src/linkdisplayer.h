@@ -41,7 +41,8 @@ private:
 
 	QLayers::QLLabel* m_link_icon_label =
 		new QLayers::QLLabel(
-			QLayers::QLGraphic(":/images/chain_link.svg", QSize(8, 18)));
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/chain_link.svg", QSize(8, 18)));
 };
 
 #endif // LINKDISPLAYER_H

@@ -20,9 +20,7 @@
                     "Corner Radii.Top Right": {
                         "link_relative": "L:../Corner Radii.Top Right"
                     },
-                    "Fill": {
-                        "link_relative": "L:../Fill"
-                    }
+                    "Fill": "L:Theme/Tertiary"
                 }
             },
             "Features Tab Bar": {

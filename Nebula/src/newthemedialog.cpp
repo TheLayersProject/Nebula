@@ -30,7 +30,8 @@ using QLayers::QLLineEditor;
 NewThemeDialog::NewThemeDialog(QWidget* parent) : QLDialog("New Theme")
 {
 	init_layout();
-	set_icon(QLGraphic(":/images/new_theme.svg", QSize(26, 26)));
+	set_icon(std::make_unique<QLGraphic>(
+		":/images/new_theme.svg", QSize(26, 26)));
 	set_object_name("New Theme Dialog");
 	setFixedSize(430, 220);
 

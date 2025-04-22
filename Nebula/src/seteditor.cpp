@@ -103,7 +103,7 @@ SetEditor::SetEditor(QWidget* parent) :
 		Qt::ScrollBarAlwaysOff);
 }
 
-void SetEditor::apply_definition(Layers::LDefinition* def)
+void SetEditor::apply_definition(Layers::LDefinition* def, bool is_top_level)
 {
 	//clear_attr_editors();
 	//m_check_label->hide();
@@ -272,7 +272,7 @@ void SetEditor::init_theme_scroller()
 {
 	for (auto& _theme : lController.themes())
 	{
-		LTheme* theme = _theme.second;
+		LTheme* theme = _theme.second.get();
 
 		if (!theme->publisher().empty())
 		{

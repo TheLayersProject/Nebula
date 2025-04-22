@@ -41,9 +41,9 @@ private:
 
 	QLayers::QLButton* m_collapse_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/collapse_arrow_right.svg", QSize(8, 12)),
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/collapse_arrow_down.svg", QSize(12, 8))) };
 
 	bool m_collapsed{ true };

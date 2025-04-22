@@ -51,6 +51,8 @@ ThemeEditor::ThemeEditor(QWidget* parent) :
 	m_sidebar->set_object_name("Sidebar");
 	m_sidebar->setFixedWidth(298);
 
+	m_theme_scroller->set_object_name("Theme Scroller");
+
 	m_mode_tab_bar->add_tab("Editor");
 	m_mode_tab_bar->add_tab("Text");
 	m_mode_tab_bar->set_current_index(0);
@@ -173,23 +175,23 @@ ThemeEditor::ThemeEditor(QWidget* parent) :
 				std::string username = get_current_username();
 
 				// Create theme
-				LTheme* theme = new LTheme(
+				std::unique_ptr<LTheme> theme = std::make_unique<LTheme>(
 					new_theme_dialog.name(),
 					username.c_str());
 
 				// Save theme to system
 				theme->save();
 
-				// Add theme to controller
-				lController.add_theme(theme);
-
 				// Update interface
-				add_theme_button(theme);
+				add_theme_button(theme.get());
+
+				// Add theme to controller
+				lController.add_theme(std::move(theme));
 			}
 		});
 }
 
-void ThemeEditor::apply_definition(Layers::LDefinition* def)
+void ThemeEditor::apply_definition(Layers::LDefinition* def, bool is_top_level)
 {
 	//clear_attr_editors();
 	//m_check_label->hide();
@@ -352,7 +354,7 @@ void ThemeEditor::init_theme_scroller()
 {
 	for (auto& _theme : lController.themes())
 	{
-		add_theme_button(_theme.second);
+		add_theme_button(_theme.second.get());
 	}
 
 	m_theme_scroller_widget->setLayout(theme_buttons_vbox);

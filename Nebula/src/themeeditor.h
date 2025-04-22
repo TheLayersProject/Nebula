@@ -41,7 +41,8 @@ class ThemeEditor : public QLayers::QLWidget
 public:
 	ThemeEditor(QWidget* parent = nullptr);
 
-	virtual void apply_definition(Layers::LDefinition* def) override;
+	virtual void apply_definition(
+		Layers::LDefinition* def, bool is_top_level = true) override;
 
 protected:
 	bool eventFilter(QObject* object, QEvent* event) override;
@@ -81,7 +82,8 @@ private:
 
 	QLayers::QLButton* m_new_theme_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(":/images/new_theme.svg", QSize(26, 26))) };
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/new_theme.svg", QSize(26, 26))) };
 
 	QLayers::QLScrollArea* m_theme_scroller{ new QLayers::QLScrollArea };
 
@@ -112,7 +114,8 @@ private:
 
 	QLayers::QLLabel* m_check_label{
 		new QLayers::QLLabel(
-			QLayers::QLGraphic(":/images/check.svg", QSize(16, 13))) };
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/check.svg", QSize(16, 13))) };
 
 	QLayers::QLLabel* m_status_label{ new QLayers::QLLabel("Saved") };
 

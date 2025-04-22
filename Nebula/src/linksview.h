@@ -55,12 +55,12 @@ private:
 
 	void update_height();
 
-	Layers::LAttribute* m_attr;
+	Layers::LAttribute* m_attr{ nullptr };
 
 	Layers::LConnectionID m_attr_link_changed_connection;
 
 	Layers::LAttribute* m_text_color{
-		new Layers::LAttribute("Text Color", "#000000", this) };
+		lMakeDefinableAttribute(this, "Text Color", "#000000") };
 
 	QString m_parent_path;
 

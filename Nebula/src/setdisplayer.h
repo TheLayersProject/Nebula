@@ -40,7 +40,7 @@ public:
 
 	void setup(
 		const QString& name, const QString& publisher,
-		const QLayers::QLGraphic& logo);
+		std::unique_ptr<QLayers::QLGraphic> logo);
 
 	void setup(
 		const QString& name, const QString& publisher);
@@ -58,7 +58,8 @@ private:
 
 	QLayers::QLButton* m_close_button
 	{ new QLayers::QLButton(
-		QLayers::QLGraphic(":/images/tab_exit.svg", QSize(16, 17))) };
+		std::make_unique<QLayers::QLGraphic>(
+			":/images/tab_exit.svg", QSize(16, 17))) };
 };
 
 #endif // SETDISPLAYER_H

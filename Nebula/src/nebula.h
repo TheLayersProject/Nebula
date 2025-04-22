@@ -43,21 +43,24 @@ private:
 
 	HomeButton* m_definitions_button{
 		new HomeButton(
-			QLayers::QLGraphic(":/images/definitions.svg", QSize(30, 19)),
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/definitions.svg", QSize(30, 19)),
 			"Definitions",
 			"Define your applications") };
 			//"Define the default values and structure of your widgets") };
 
 	HomeButton* m_themes_button{
 		new HomeButton(
-			QLayers::QLGraphic(":/images/themes.svg", QSize(30, 30)),
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/themes.svg", QSize(30, 30)),
 			"Themes",
 			"Control a universe of applications") };
 			//"Create themes that can be applied to any Layers app") };
 
 	HomeButton* m_styles_button{
 		new HomeButton(
-			QLayers::QLGraphic(":/images/styles.svg", QSize(26, 25)),
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/styles.svg", QSize(26, 25)),
 			"Styles",
 			"Redefine applications") };
 			//"Craft styles that illuminate apps through the cosmic void") };

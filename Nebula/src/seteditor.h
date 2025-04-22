@@ -17,8 +17,8 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef DEFINITIONSETEDITOR_H
-#define DEFINITIONSETEDITOR_H
+#ifndef SETEDITOR_H
+#define SETEDITOR_H
 
 #include <QVBoxLayout>
 #include <Layers/ltheme.h>
@@ -40,7 +40,8 @@ class SetEditor : public QLayers::QLWidget
 public:
 	SetEditor(QWidget* parent = nullptr);
 
-	virtual void apply_definition(Layers::LDefinition* def) override;
+	virtual void apply_definition(Layers::LDefinition* def,
+		bool is_top_level = true) override;
 
 	void setup_view(Layers::LDefinition* def);
 
@@ -96,4 +97,4 @@ private:
 	QLWidget* m_editor{ new QLWidget };
 };
 
-#endif // DEFINITIONSETEDITOR_H
+#endif // SETEDITOR_H

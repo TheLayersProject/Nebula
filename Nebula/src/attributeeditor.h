@@ -81,17 +81,19 @@ private:
 
 	QLayers::QLLabel* m_link_icon_label =
 		new QLayers::QLLabel(
-			QLayers::QLGraphic(":/images/chain_link.svg", QSize(8, 18)));
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/chain_link.svg", QSize(8, 18)));
 
 	QLayers::QLLabel* m_overrides_icon_label =
 		new QLayers::QLLabel(
-			QLayers::QLGraphic(":/images/overrides_icon.svg", QSize(10, 18)));
+			std::make_unique<QLayers::QLGraphic>(
+				":/images/overrides_icon.svg", QSize(10, 18)));
 
 	QLayers::QLButton* m_collapse_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/collapse_arrow_right.svg", QSize(8, 12)),
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/collapse_arrow_down.svg", QSize(12, 8))) };
 
 	QLWidget* m_icons_widget{ new QLWidget };
@@ -113,12 +115,12 @@ private:
 
 	QLayers::QLButton* m_new_link_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/plus.svg", QSize(18, 18)), "New Link") };
 
 	QLayers::QLButton* m_break_link_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/tab_exit.svg", QSize(16, 17)), "Break Link") };
 
 	QLayers::QLStatePool* m_status_states{

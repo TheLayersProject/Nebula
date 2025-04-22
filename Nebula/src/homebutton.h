@@ -35,7 +35,7 @@ signals:
 
 public:
 	HomeButton(
-		const QLayers::QLGraphic& graphic,
+		std::unique_ptr<QLayers::QLGraphic> graphic,
 		const QString& title,
 		const QString& description,
 		QWidget* parent = nullptr);

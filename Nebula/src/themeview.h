@@ -52,11 +52,11 @@ protected:
 		const QItemSelection& deselected) override;
 
 private:
-	Layers::LAttribute* m_fill
-		{ new Layers::LAttribute("Fill", "#ffffff", this) };
+	Layers::LAttribute* m_fill{
+		lMakeDefinableAttribute(this, "Fill", "#ffffff") };
 
-	Layers::LAttribute* m_text_color
-		{ new Layers::LAttribute("Text Color", "#000000", this) };
+	Layers::LAttribute* m_text_color{
+		lMakeDefinableAttribute(this, "Text Color", "#000000") };
 
 	QLayers::QLScrollBar* m_horizontal_scrollbar{ new QLayers::QLScrollBar };
 	QLayers::QLScrollBar* m_vertical_scrollbar{ new QLayers::QLScrollBar };

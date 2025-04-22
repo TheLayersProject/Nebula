@@ -60,12 +60,12 @@ private:
 
 	QLayers::QLButton* m_apply_link_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/check.svg", QSize(16, 13)), "Apply Link") };
 
 	QLayers::QLButton* m_cancel_button{
 		new QLayers::QLButton(
-			QLayers::QLGraphic(
+			std::make_unique<QLayers::QLGraphic>(
 				":/images/tab_exit.svg", QSize(16, 17)), "Cancel") };
 
 	QLayers::QLResizer* m_resizer{

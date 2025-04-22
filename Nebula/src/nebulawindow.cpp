@@ -33,21 +33,15 @@ NebulaWindow::NebulaWindow(QWidget* parent) :
 {
 	setWindowIcon(QIcon(":/images/nebula_logo.svg"));
 
-	QLGraphic logo_graphic = QLGraphic(":/images/nebula_logo.svg", QSize(35, 31));
-	logo_graphic.svg_renderer()->exclude_from_theme("black_holes");
-	logo_graphic.svg_renderer()->exclude_from_theme("stars");
-	logo_graphic.svg_renderer()->exclude_from_theme("nebula2");
-	logo_graphic.svg_renderer()->exclude_from_theme("nebula3");
-	logo_graphic.svg_renderer()->exclude_from_theme("nebula4");
-	logo_graphic.svg_renderer()->exclude_from_theme("nebula5");
-
 	Nebula* nebula = new Nebula;
 
 	connect(nebula->definitions_button(), &HomeButton::clicked,
 		[this]
 		{
 			open_central_widget(
-				new DefinitionEditor(this), QLGraphic(":/images/definitions.svg", QSize(29, 18)),
+				new DefinitionEditor(this),
+				std::make_unique<QLayers::QLGraphic>(
+					":/images/definitions.svg", QSize(29, 18)),
 				"Definitions");
 		});
 
@@ -55,9 +49,20 @@ NebulaWindow::NebulaWindow(QWidget* parent) :
 		[this]
 		{
 			open_central_widget(
-				new ThemeEditor(this), QLGraphic(":/images/themes.svg", QSize(25, 25)),
+				new ThemeEditor(this),
+				std::make_unique<QLayers::QLGraphic>(
+					":/images/themes.svg", QSize(25, 25)),
 				"Themes");
 		});
 
-	open_central_widget(nebula, logo_graphic, "Nebula");
+	std::unique_ptr<QLGraphic> tab_logo =
+		std::make_unique<QLGraphic>(":/images/nebula_logo.svg", QSize(35, 31));
+	tab_logo->svg_renderer()->exclude_from_theme("black_holes");
+	tab_logo->svg_renderer()->exclude_from_theme("stars");
+	tab_logo->svg_renderer()->exclude_from_theme("nebula2");
+	tab_logo->svg_renderer()->exclude_from_theme("nebula3");
+	tab_logo->svg_renderer()->exclude_from_theme("nebula4");
+	tab_logo->svg_renderer()->exclude_from_theme("nebula5");
+
+	open_central_widget(nebula, std::move(tab_logo), "Nebula");
 }

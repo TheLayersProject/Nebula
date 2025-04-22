@@ -17,8 +17,8 @@
  * along with Nebula. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef DEFINITIONSETSELECTOR_H
-#define DEFINITIONSETSELECTOR_H
+#ifndef SETSELECTOR_H
+#define SETSELECTOR_H
 
 #include <QVBoxLayout>
 #include <Layers/ltheme.h>
@@ -38,8 +38,8 @@ class SetSelector : public QLayers::QLWidget
 	Q_OBJECT
 
 signals:
-	void selected_with_logo(const QString& name, const QString& publisher, const QLayers::QLGraphic& logo);
-	void selected(const QString& name, const QString& publisher);
+	//void selected_with_logo(const QString& name, const QString& publisher, const std::filesystem::path& path, std::unique_ptr<QLayers::QLGraphic> logo);
+	void selected(const QString& name, const QString& publisher, const std::filesystem::path& path);
 
 signals:
 	void selected_version(const QString& version_tag);
@@ -47,7 +47,8 @@ signals:
 public:
 	SetSelector(QWidget* parent = nullptr);
 
-	virtual void apply_definition(Layers::LDefinition* def) override;
+	virtual void apply_definition(Layers::LDefinition* def,
+		bool is_top_level = true) override;
 
 	QList<SetButton*>& set_buttons();
 
@@ -93,4 +94,4 @@ private:
 	QWidget* m_version_buttons_widget{ new QWidget };
 };
 
-#endif // DEFINITIONSETSELECTOR_H
+#endif // SETSELECTOR_H

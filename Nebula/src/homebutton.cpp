@@ -20,16 +20,18 @@
 #include "homebutton.h"
 
 #include <QMouseEvent>
+#include <Layers/lobjectfactory.h>
 
+using Layers::LAttribute;
 using QLayers::QLGraphic;
 using QLayers::QLLabel;
 
 HomeButton::HomeButton(
-	const QLayers::QLGraphic& graphic,
+	std::unique_ptr<QLGraphic> graphic,
 	const QString& title,
 	const QString& description,
 	QWidget* parent) :
-	m_graphic_label{ new QLLabel(graphic) },
+	m_graphic_label{ new QLLabel(std::move(graphic)) },
 	m_title_label{ new QLLabel(title) },
 	m_description_label{ new QLLabel(description) },
 	QLWidget(parent)
@@ -113,8 +115,11 @@ void HomeButton::init()
 
 		m_graphic_label->graphic()->svg_renderer()->color()->set_value(
 			"#808080");
-		m_graphic_label->graphic()->svg_renderer()->color()->create_state(
-			"Selected", "#c0c0c0");
+		//Layers::lMake<LAttribute>(
+		//	m_graphic_label->graphic()->svg_renderer()->color(),
+		//	"Selected", "#c0c0c0");
+		//m_graphic_label->graphic()->svg_renderer()->color()->create_state(
+		//	"Selected", "#c0c0c0");
 	}
 
 	m_title_label->set_object_name("Title Label");
