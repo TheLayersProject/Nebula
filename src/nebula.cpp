@@ -20,10 +20,6 @@
 #include "nebula.h"
 
 #include <QVBoxLayout>
-#include "QLayers/qllabel.h"
-
-using QLayers::QLGraphic;
-using QLayers::QLLabel;
 
 Nebula::Nebula(QWidget* parent) :
 	QLWidget(parent)
